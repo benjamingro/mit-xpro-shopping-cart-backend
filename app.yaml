@@ -11,6 +11,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START gae_quickstart_yaml]
 runtime: nodejs14
-# [END gae_quickstart_yaml]
+
+# The following env variables may contain sensitive information that grants
+# anyone access to your database. Do not add this file to your source control.
+env_variables:
+  DB_USER: myinstance
+  DB_PASS: flly2PnndbnaEyqg
+  DB_NAME: week19
+  # e.g. my-awesome-project:us-central1:my-cloud-sql-instance
+  # mit-xpro-319116:us-central1:mysqlinstance
+  CLOUD_SQL_CONNECTION_NAME: mit-xpro-319116:us-central1:mysqlinstance

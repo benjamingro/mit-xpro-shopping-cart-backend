@@ -17,18 +17,39 @@
 // [START gae_node_request_example]
 const express = require('express');
 
+const databaseJs = require('./database');
+const getHelloMessage = databaseJs.getHelloMessage;
+const getAllProductData = databaseJs.getAllProductData;
+
+
+
 const app = express();
 
 app.get('/', (req, res) => {
-  res.status(200).send('Hello, world!').end();
+  const myHelloMessage = getHelloMessage();
+  res.status(200).send(myHelloMessage).end();
+
+  // res.status(200).send('Hello, world!').end();
+});
+
+app.get('/allproducts', (req, res) => {
+  getAllProductData()
+    .then(value => { 
+      res.status(200).send(value).end();
+
+    })
+    .catch(error => {
+      res.status(200).send(error).end();
+
+     });
 });
 
 // Start the server
 const PORT = process.env.PORT || 8080;
+
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
   console.log('Press Ctrl+C to quit.');
 });
-// [END gae_node_request_example]
 
 module.exports = app;
