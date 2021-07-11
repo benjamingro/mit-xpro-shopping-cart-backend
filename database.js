@@ -1,7 +1,7 @@
 const mysql = require('promise-mysql');
 
 exports.getHelloMessage = () => {
-    return "Hello from database.js"; 
+    return "Hello from database.js";
 };
 
 
@@ -76,9 +76,55 @@ const createPool = async () => {
     }
 };
 
-exports.getAllProductData = async () => { 
-    const pool = await createPool(); 
+exports.getAllProductData = async () => {
+    const pool = await createPool();
     const allProductDataQuery = pool.query('SELECT * FROM inventory1');
-    const allProductData = await allProductDataQuery; 
-    return allProductData; 
+    const allProductData = await allProductDataQuery;
+    return allProductData;
 }
+
+exports.checkout = (checkoutItems) => {
+    return new Promise((resolve, reject) => {
+        createPool()
+            .then(pool => {
+                let promiseArray = [];
+                checkoutItems.forEach(item => {
+                    const myQuery = pool.query(`
+                        UPDATE inventory1
+                            SET Instock = Instock - ${item.Incart}
+                            WHERE ProductName='${item.ProductName}';
+                        `
+                    );
+                    promiseArray.push(myQuery()); 
+                    Promise.all(promiseArray).then(()=>{
+                        pool.query('SELECT * FROM inventory1')
+                        .then(value=>{
+                            resolve(value); 
+                        })
+                        .catch(error=>{
+                            reject(error); 
+                        });
+                    })
+                })
+            })
+    })
+}
+
+// exports.checkout = async (checkoutItems) => {
+//     const pool = await createPool();
+//     let promiseArray = [];
+//     checkoutItems.forEach(item => {
+//         const myQuery = pool.query(`
+//         UPDATE inventory1
+//             SET Instock = Instock - ${item.Incart}
+//             WHERE ProductName='${item.ProductName}';
+//         `);
+//         promiseArray.push(myQuery());
+//     });
+//     await Promise.all(promiseArray);
+
+//     const allProductDataQuery = pool.query('SELECT * FROM inventory1');
+//     const allProductData = await allProductDataQuery;
+//     return allProductData;
+
+// }

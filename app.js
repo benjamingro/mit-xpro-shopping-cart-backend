@@ -20,10 +20,15 @@ const express = require('express');
 const databaseJs = require('./database');
 const getHelloMessage = databaseJs.getHelloMessage;
 const getAllProductData = databaseJs.getAllProductData;
+const checkout = databaseJs.checkout;
 
 
 
 const app = express();
+const cors = require('cors');
+app.use(cors());
+// for consuming json post data
+// app.use(express.bodyParser());
 
 app.get('/', (req, res) => {
   const myHelloMessage = getHelloMessage();
@@ -34,14 +39,25 @@ app.get('/', (req, res) => {
 
 app.get('/allproducts', (req, res) => {
   getAllProductData()
-    .then(value => { 
+    .then(value => {
       res.status(200).send(value).end();
 
     })
     .catch(error => {
       res.status(200).send(error).end();
 
-     });
+    });
+});
+
+app.post('/checkout', (req, res) => {
+  console.log('inside /checkout'); 
+  console.log(JSON.stringify(req.body)); 
+
+  checkout(req.body)
+    .then(value => {
+      res.status(200).send(value).end();
+     })
+    .catch(error => { console.log(error) });
 });
 
 // Start the server
