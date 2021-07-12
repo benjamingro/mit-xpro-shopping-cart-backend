@@ -17,7 +17,7 @@ runtime: nodejs14
 # anyone access to your database. Do not add this file to your source control.
 env_variables:
   DB_USER: myinstance
-  DB_PASS: xxxxxxxxxxxxxxxx
+  DB_PASS: yyyyyyyyyyyyyyyyyy
   DB_NAME: week19
   # e.g. my-awesome-project:us-central1:my-cloud-sql-instance
   # mit-xpro-319116:us-central1:mysqlinstance
