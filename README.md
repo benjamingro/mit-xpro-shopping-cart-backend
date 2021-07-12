@@ -1,3 +1,6 @@
+# Notes
+The Inventory folder contains files used to build the Cloud SQL Database to be used in conjunction with this app. The Inventory folder is not used at all to build or deploy this app. 
+
 # Quickstart for Node.js in the App Engine standard environment
 
 This is the sample application for the
