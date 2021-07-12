@@ -5,7 +5,6 @@ exports.getHelloMessage = () => {
 };
 
 
-// [START cloud_sql_mysql_mysql_create_tcp]
 const createTcpPool = async config => {
     // Extract host and port from socket address
     const dbSocketAddr = process.env.DB_HOST.split(':');
@@ -21,9 +20,7 @@ const createTcpPool = async config => {
         ...config,
     });
 };
-// [END cloud_sql_mysql_mysql_create_tcp]
 
-// [START cloud_sql_mysql_mysql_create_socket]
 const createUnixSocketPool = async config => {
     const dbSocketPath = process.env.DB_SOCKET_PATH || '/cloudsql';
 
@@ -38,7 +35,6 @@ const createUnixSocketPool = async config => {
         ...config,
     });
 };
-// [END cloud_sql_mysql_mysql_create_socket]
 
 const createPool = async () => {
     const config = {
@@ -83,48 +79,58 @@ exports.getAllProductData = async () => {
     return allProductData;
 }
 
-exports.checkout = (checkoutItems) => {
+exports.replenish = async () => {
+    console.log('inside exports.replenish = async'); 
+
+    return new Promise((resolve, reject) => {
+        createPool()
+            .then(pool => {
+                console.log('inside createPool()'); 
+                pool.query('UPDATE inventory1 SET Instock = 20;')
+                    .then(results => { 
+                        console.log('inside pool.query UPDATE inventory1'); 
+
+                        pool.query('SELECT * FROM inventory1')
+                            .then(value => {
+                                console.log('inside pool.query SELECT * FROM inventory1'); 
+
+                                resolve(value);
+                            })
+                            .catch(error => {
+                                reject(error);
+                            });
+                    })
+                    .catch(error => reject(error));
+            })
+            .catch(error => reject(error))
+    })
+
+}
+
+
+exports.checkout = async (checkoutItems) => {
     return new Promise((resolve, reject) => {
         createPool()
             .then(pool => {
                 let promiseArray = [];
                 checkoutItems.forEach(item => {
                     const myQuery = pool.query(`
-                        UPDATE inventory1
-                            SET Instock = Instock - ${item.Incart}
-                            WHERE ProductName='${item.ProductName}';
-                        `
+                            UPDATE inventory1
+                                SET Instock = Instock - ${item.Incart}
+                                WHERE ProductName='${item.ProductName}';
+                            `
                     );
-                    promiseArray.push(myQuery()); 
-                    Promise.all(promiseArray).then(()=>{
+                    promiseArray.push(myQuery);
+                    Promise.all(promiseArray).then(() => {
                         pool.query('SELECT * FROM inventory1')
-                        .then(value=>{
-                            resolve(value); 
-                        })
-                        .catch(error=>{
-                            reject(error); 
-                        });
+                            .then(value => {
+                                resolve(value);
+                            })
+                            .catch(error => {
+                                reject(error);
+                            });
                     })
                 })
             })
     })
-}
-
-// exports.checkout = async (checkoutItems) => {
-//     const pool = await createPool();
-//     let promiseArray = [];
-//     checkoutItems.forEach(item => {
-//         const myQuery = pool.query(`
-//         UPDATE inventory1
-//             SET Instock = Instock - ${item.Incart}
-//             WHERE ProductName='${item.ProductName}';
-//         `);
-//         promiseArray.push(myQuery());
-//     });
-//     await Promise.all(promiseArray);
-
-//     const allProductDataQuery = pool.query('SELECT * FROM inventory1');
-//     const allProductData = await allProductDataQuery;
-//     return allProductData;
-
-// }
+};
