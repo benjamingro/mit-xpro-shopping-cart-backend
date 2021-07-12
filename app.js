@@ -18,6 +18,7 @@ app.use(cors());
 // for consuming json post data
 app.use(express.json());
 
+//this is just a "hello world" function, not used for the API: 
 app.get('/', (req, res) => {
   const myHelloMessage = getHelloMessage();
   res.status(200).send(myHelloMessage).end();
