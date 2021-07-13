@@ -12,6 +12,10 @@ This project was bootstrapped from the following projects in the [https://github
 
 * [cloud-sql](https://github.com/GoogleCloudPlatform/nodejs-docs-samples/tree/master/cloud-sql/mysql/mysql) - adapted code from this repository to configure and communicate with mySQL database. The app.yaml file in this reposity was used as a template for configuring the mySQL connection. For this project, the app.yaml file is in .gitignore because it has sensitive configuration data.
 
+## Cloud SQL
+The [Inventory folder](https://github.com/benjamingro/mit-xpro-shopping-cart-backend/tree/main/Inventory) contains the files used to build the mySQL database. 
+* **data scheme** - Inventory8.ods
+* **raw data** - Inventory8.csv 
 
 
 
