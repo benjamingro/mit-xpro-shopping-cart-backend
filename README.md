@@ -1,19 +1,28 @@
-# Notes
-The Inventory folder contains files used to build the Cloud SQL Database to be used in conjunction with this app. The Inventory folder is not used at all to build or deploy this app. 
+# Back-end Server Application for Week 19 Shopping Cart Exercise
+This is back-end server application for my solution to the Week 19 Shopping Cart Exercise. 
+It is deployed as an App Engine App in a Google Cloud Platform (GCP) Project. 
+The GCP Project contains three components.
+* **App Engine App** - API with HTTPS endpoints and integration with mySQL
+* **mySQL Database** - contains the product data
+* **Cloud Storage** - contains product images 
 
-# Quickstart for Node.js in the App Engine standard environment
+This project was bootstrapped from the following projects in the [https://github.com/GoogleCloudPlatform/nodejs-docs-samples/tree/master/appengine](Google Cloud Platform NodeJS App Engine repository).
 
-This is the sample application for the
-[Quickstart for Node.js in the App Engine standard environment][tutorial]
-tutorial found in the [Google App Engine Node.js standard environment][appengine]
-documentation.
+* [hello-world](https://github.com/GoogleCloudPlatform/nodejs-docs-samples/tree/master/appengine/hello-world/standard) - used for basic project structure and function prototypes
+
+* [cloud-sql](https://github.com/GoogleCloudPlatform/nodejs-docs-samples/tree/master/cloud-sql/mysql/mysql) - adapted code from this repository to configure and communicate with mySQL database. The app.yaml file in this reposity was used as a template for configuring the mySQL connection. For this project, the app.yaml file is in .gitignore because it has sensitive configuration data.
+
+
+
+
+## Quickstart 
 
 * [Setup](#setup)
 * [Running locally](#running-locally)
 * [Deploying to App Engine](#deploying-to-app-engine)
 * [Running the tests](#running-the-tests)
 
-## Setup
+### Setup
 
 Before you can run or deploy the sample, you need to do the following:
 
@@ -23,19 +32,11 @@ Before you can run or deploy the sample, you need to do the following:
 
         npm install
 
-## Running locally
+### Running locally
 
     npm start
 
-## Deploying to App Engine
+### Deploying to App Engine
 
     gcloud app deploy
 
-## Running the tests
-
-See [Contributing][contributing].
-
-[appengine]: https://cloud.google.com/appengine/docs/standard/nodejs
-[tutorial]: https://cloud.google.com/appengine/docs/standard/nodejs/quickstart
-[readme]: ../../README.md
-[contributing]: https://github.com/GoogleCloudPlatform/nodejs-docs-samples/blob/master/CONTRIBUTING.md
