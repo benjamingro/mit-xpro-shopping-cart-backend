@@ -6,7 +6,7 @@ The GCP Project contains three components.
 * **mySQL Database** - contains the product data
 * **Cloud Storage** - contains product images 
 
-This project was bootstrapped from the following projects in the [https://github.com/GoogleCloudPlatform/nodejs-docs-samples/tree/master/appengine](Google Cloud Platform NodeJS App Engine repository).
+This project was bootstrapped from the following projects in the [Google Cloud Platform NodeJS App Engine repository](https://github.com/GoogleCloudPlatform/nodejs-docs-samples/tree/master/appengine).
 
 * [hello-world](https://github.com/GoogleCloudPlatform/nodejs-docs-samples/tree/master/appengine/hello-world/standard) - used for basic project structure and function prototypes
 
