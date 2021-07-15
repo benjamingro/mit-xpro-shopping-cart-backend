@@ -5,12 +5,14 @@
 const express = require('express');
 
 const databaseJs = require('./database');
+
+var { graphqlHTTP } = require('express-graphql');
+var { buildSchema } = require('graphql');
+
 const getHelloMessage = databaseJs.getHelloMessage;
 const getAllProductData = databaseJs.getAllProductData;
 const checkout = databaseJs.checkout;
 const replenish = databaseJs.replenish;
-
-
 
 const app = express();
 const cors = require('cors');
@@ -36,6 +38,36 @@ app.get('/allproducts', (req, res) => {
 
     });
 });
+
+//this is the graphql version 
+const schema = buildSchema(`
+  type Query {
+    ProductName: String,
+    Price: Float,
+    Price_unit: String,
+    Instock: Int,
+    Instock_unit: String,
+    Country: String,
+    Created_at: String,
+    Updated_at: String,
+    imageUrl: String,
+    entryID:ID
+  }
+`);
+
+
+const getAllProductData_graphQL = {
+  me : async () =>{
+    let allData= await getAllProductData();
+    return allData;  
+  },
+}
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: getAllProductData_graphQL,
+  graphiql: true,
+}));
 
 app.get('/replenish',(req,res)=>{
   console.log('inside /replenish'); 
