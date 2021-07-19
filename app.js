@@ -54,32 +54,27 @@ const schema = buildSchema(`
         Country: String,
         Created_at: String,
         Updated_at: String,
-        imageUrl: String,
+        ImageUrl: String,
         entryID:ID
   }
 
 `);
 
-
-
-const getAllProductData_graphQL = {
-  me : async () =>{
-    let allData= await getAllProductData();
-    allData = {"ProductList":allData.slice()}; 
-    console.log('inside getAllProductData_graphQL, allData = ');
-    console.log(JSON.stringify(allData)); 
-    return allData;  
-  },
-}
+var root = {
+  ProductList: () => {
+      return getAllProductData();
+  }
+};
 
 app.use('/graphql', graphqlHTTP({
   schema: schema,
-  rootValue: getAllProductData_graphQL,
+  rootValue: root,
   graphiql: true,
 }));
 
-app.get('/replenish',(req,res)=>{
-  console.log('inside /replenish'); 
+
+app.get('/replenish', (req, res) => {
+  console.log('inside /replenish');
   replenish()
     .then(value => {
       res.status(200).send(value).end();
@@ -95,7 +90,7 @@ app.post('/checkout', (req, res) => {
   checkout(req.body)
     .then(value => {
       res.status(200).send(value).end();
-     })
+    })
     .catch(error => { console.log(error) });
 });
 
