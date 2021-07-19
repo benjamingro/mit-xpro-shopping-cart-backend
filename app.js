@@ -42,24 +42,30 @@ app.get('/allproducts', (req, res) => {
 //this is the graphql version 
 const schema = buildSchema(`
   type Query {
-    ProductName: String,
-    Price: Float,
-    Price_unit: String,
-    Instock: Int,
-    Instock_unit: String,
-    Country: String,
-    Created_at: String,
-    Updated_at: String,
-    imageUrl: String,
-    entryID:ID
+    ProductList:[Product]
   }
+
+  type Product{
+        ProductName: String,
+        Price: Float,
+        Price_unit: String,
+        Instock: Int,
+        Instock_unit: String,
+        Country: String,
+        Created_at: String,
+        Updated_at: String,
+        imageUrl: String,
+        entryID:ID
+  }
+
 `);
+
 
 
 const getAllProductData_graphQL = {
   me : async () =>{
     let allData= await getAllProductData();
-    allData = {"data":allData.slice()}; 
+    allData = {"ProductList":allData.slice()}; 
     console.log('inside getAllProductData_graphQL, allData = ');
     console.log(JSON.stringify(allData)); 
     return allData;  
