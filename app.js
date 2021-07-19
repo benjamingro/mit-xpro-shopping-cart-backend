@@ -59,6 +59,9 @@ const schema = buildSchema(`
 const getAllProductData_graphQL = {
   me : async () =>{
     let allData= await getAllProductData();
+    allData = {"data":allData.slice()}; 
+    console.log('inside getAllProductData_graphQL, allData = ');
+    console.log(JSON.stringify(allData)); 
     return allData;  
   },
 }
