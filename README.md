@@ -13,7 +13,7 @@ This project was bootstrapped from the following projects in the [Google Cloud P
 * [cloud-sql](https://github.com/GoogleCloudPlatform/nodejs-docs-samples/tree/master/cloud-sql/mysql/mysql) - adapted code from this repository to configure and communicate with mySQL database. The app.yaml file in this reposity was used as a template for configuring the mySQL connection. For this project, the app.yaml file is in .gitignore because it has sensitive configuration data.
 
 ### GraphQL
-GraphQL was implemented in this app as part of the Week 20 exercise. You can access the GraphQL interface at [https://mit-xpro-319116.uc.r.appspot.com/graphql](https://mit-xpro-319116.uc.r.appspot.com/graphql). Below is an example query that you can run to retrieve product data. 
+GraphQL was implemented in this app as part of the Week 20 exercise. You can access the GraphQL interface at [https://mit-xpro-319116.uc.r.appspot.com/graphql](https://mit-xpro-319116.uc.r.appspot.com/graphql). Below is an example query that retrieves product data. 
 ```
 query{
   ProductList
